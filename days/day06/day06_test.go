@@ -34,7 +34,7 @@ func TestDay06ExamplePart1(t *testing.T) {
 
 func TestDay06ExamplePart2(t *testing.T) {
 	grid, start := parseGrid(exampleGrid)
-	if ans := solvePart2(grid, start); ans != 11387 {
-		t.Errorf("expected 11387, got %d", ans)
+	if ans := solvePart2(grid, start); ans != 6 {
+		t.Errorf("expected 6, got %d", ans)
 	}
 }

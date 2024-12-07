@@ -2,13 +2,17 @@ package day06
 
 import (
 	"bufio"
-	"fmt"
 	"os"
 )
 
 type position struct {
 	row int
 	col int
+}
+
+type pos_dir struct {
+	pos position
+	dir direction
 }
 
 type grid [][]int
@@ -68,25 +72,27 @@ func drawGrid(grid grid, visited map[position]int) {
 				s += "."
 			}
 		}
-		fmt.Println(s)
+		// fmt.Println(s)
 	}
-	fmt.Println()
+	// fmt.Println()
 }
+
+var visited map[position]int
 
 func solvePart1(grid grid, start position) int {
 	pos := start
 	var res result
 	var dir direction = dir_up
-	visited := make(map[position]int)
+	visited = make(map[position]int)
 	visited[start]++
 	// drawGrid(grid, visited)
 
 	run := true
 
 	for run {
-		fmt.Printf("pos: %v, dir: %v\n", pos, dir)
+		// fmt.Printf("pos: %v, dir: %v\n", pos, dir)
 		res, pos = step(grid, pos, dir)
-		fmt.Printf("res: %v, pos: %v\n", res, pos)
+		// fmt.Printf("res: %v, pos: %v\n", res, pos)
 
 		switch res {
 		case res_ok:
@@ -104,9 +110,50 @@ func solvePart1(grid grid, start position) int {
 }
 
 func solvePart2(grid grid, start position) int {
-	ans := 0
+	loops := 0
 
-	return ans
+	for point := range visited {
+		row := point.row
+		col := point.col
+		if grid[row][col] != 0 {
+			continue
+		}
+
+		// fmt.Printf("(%v, %v)", row, col)
+		grid[row][col] = 1
+
+		pos := start
+		var res result
+		var dir direction = dir_up
+		visited_2 := make(map[pos_dir]int)
+		start_posdir := pos_dir{start, dir_up}
+		visited_2[start_posdir]++
+
+		run := true
+		for run {
+			// fmt.Printf("pos: %v, dir: %v\n", pos, dir)
+			res, pos = step(grid, pos, dir)
+			// fmt.Printf("res: %v, pos: %v\n", res, pos)
+
+			switch res {
+			case res_ok:
+				posdir := pos_dir{pos, dir}
+				if visited_2[posdir] > 0 {
+					loops++
+					run = false
+				}
+				visited_2[posdir]++
+			case res_blocked:
+				dir = (dir + 1) % 4
+			case res_out_of_bounds:
+				run = false
+			}
+		}
+
+		grid[row][col] = 0
+	}
+
+	return loops
 }
 
 func parseGrid(lines []string) (grid, position) {
