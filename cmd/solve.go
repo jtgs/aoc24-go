@@ -12,6 +12,7 @@ import (
 	"github.com/jtgs/aoc24-go/days/day03"
 	"github.com/jtgs/aoc24-go/days/day04"
 	"github.com/jtgs/aoc24-go/days/day05"
+	"github.com/jtgs/aoc24-go/days/day06"
 	"github.com/jtgs/aoc24-go/days/day07"
 	"github.com/spf13/cobra"
 )
@@ -34,7 +35,7 @@ var solveCmd = &cobra.Command{
 			day03.Run,
 			day04.Run,
 			day05.Run,
-			nil,
+			day06.Run,
 			day07.Run,
 		}
 
