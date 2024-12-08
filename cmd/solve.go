@@ -14,6 +14,7 @@ import (
 	"github.com/jtgs/aoc24-go/days/day05"
 	"github.com/jtgs/aoc24-go/days/day06"
 	"github.com/jtgs/aoc24-go/days/day07"
+	"github.com/jtgs/aoc24-go/days/day08"
 	"github.com/spf13/cobra"
 )
 
@@ -37,6 +38,7 @@ var solveCmd = &cobra.Command{
 			day05.Run,
 			day06.Run,
 			day07.Run,
+			day08.Run,
 		}
 
 		if Day > 0 {
