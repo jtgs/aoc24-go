@@ -14,24 +14,6 @@ type position struct {
 	col int
 }
 
-// func drawGrid(grid grid, visited map[position]int) {
-// 	for row := range grid {
-// 		var s string
-// 		for col := range grid[row] {
-// 			pos := position{row, col}
-// 			if visited[pos] > 0 {
-// 				s += "X"
-// 			} else if grid[row][col] == 1 {
-// 				s += "#"
-// 			} else {
-// 				s += "."
-// 			}
-// 		}
-// 		// fmt.Println(s)
-// 	}
-// 	// fmt.Println()
-// }
-
 func inBounds(pos position, height int, width int) bool {
 	if pos.row < 0 || pos.col < 0 || pos.row >= height || pos.col >= width {
 		return false
@@ -91,7 +73,7 @@ func solvePart2(antennas map[rune][]position, height int, width int) int {
 	antinodes := make(map[position]int)
 
 	for lt, ant := range antennas {
-		fmt.Printf("Antenna %v: %v\n", lt, ant)
+		fmt.Printf("Antenna %c: %v\n", lt, ant)
 		combis := combinations.Combinations(ant, 2)
 		for _, combi := range combis {
 			fmt.Printf("  A: %v B: %v\n", combi[0], combi[1])
